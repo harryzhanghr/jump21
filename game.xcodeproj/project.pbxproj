@@ -13,6 +13,11 @@
 		6A4CC1D91A4AF16C00568D04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A4CC1D81A4AF16C00568D04 /* Images.xcassets */; };
 		6A4CC1DC1A4AF16C00568D04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A4CC1DA1A4AF16C00568D04 /* LaunchScreen.xib */; };
 		6A4CC1E81A4AF16D00568D04 /* gameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4CC1E71A4AF16D00568D04 /* gameTests.swift */; };
+		6ABF6E021A4D58D40028EC4B /* MutableBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABF6E011A4D58D40028EC4B /* MutableBoard.swift */; };
+		6ABF6E041A4D59E20028EC4B /* Side.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABF6E031A4D59E20028EC4B /* Side.swift */; };
+		6ABF6E061A4D5C0A0028EC4B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABF6E051A4D5C0A0028EC4B /* Player.swift */; };
+		6ABF6E081A4D5CBA0028EC4B /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABF6E071A4D5CBA0028EC4B /* Game.swift */; };
+		6ABF6E0A1A4D5DDE0028EC4B /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABF6E091A4D5DDE0028EC4B /* Square.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,11 @@
 		6A4CC1E11A4AF16D00568D04 /* gameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A4CC1E61A4AF16D00568D04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A4CC1E71A4AF16D00568D04 /* gameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameTests.swift; sourceTree = "<group>"; };
+		6ABF6E011A4D58D40028EC4B /* MutableBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableBoard.swift; sourceTree = "<group>"; };
+		6ABF6E031A4D59E20028EC4B /* Side.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Side.swift; sourceTree = "<group>"; };
+		6ABF6E051A4D5C0A0028EC4B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		6ABF6E071A4D5CBA0028EC4B /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		6ABF6E091A4D5DDE0028EC4B /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +88,11 @@
 			isa = PBXGroup;
 			children = (
 				6A4CC1D11A4AF16C00568D04 /* AppDelegate.swift */,
+				6ABF6E011A4D58D40028EC4B /* MutableBoard.swift */,
+				6ABF6E091A4D5DDE0028EC4B /* Square.swift */,
+				6ABF6E031A4D59E20028EC4B /* Side.swift */,
+				6ABF6E051A4D5C0A0028EC4B /* Player.swift */,
+				6ABF6E071A4D5CBA0028EC4B /* Game.swift */,
 				6A4CC1D31A4AF16C00568D04 /* ViewController.swift */,
 				6A4CC1D51A4AF16C00568D04 /* Main.storyboard */,
 				6A4CC1D81A4AF16C00568D04 /* Images.xcassets */,
@@ -213,7 +228,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A4CC1D41A4AF16C00568D04 /* ViewController.swift in Sources */,
+				6ABF6E081A4D5CBA0028EC4B /* Game.swift in Sources */,
 				6A4CC1D21A4AF16C00568D04 /* AppDelegate.swift in Sources */,
+				6ABF6E0A1A4D5DDE0028EC4B /* Square.swift in Sources */,
+				6ABF6E041A4D59E20028EC4B /* Side.swift in Sources */,
+				6ABF6E061A4D5C0A0028EC4B /* Player.swift in Sources */,
+				6ABF6E021A4D58D40028EC4B /* MutableBoard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +427,7 @@
 				6A4CC1ED1A4AF16D00568D04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6A4CC1EE1A4AF16D00568D04 /* Build configuration list for PBXNativeTarget "gameTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +436,7 @@
 				6A4CC1F01A4AF16D00568D04 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
