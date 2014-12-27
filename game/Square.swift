@@ -24,7 +24,7 @@ class Square {
     *  is WHITE, returns the value of INITIAL. */
     class func square(side: Side, spots: Int) -> Square {
         if (spots == 0 || side == Side.WHITE) {
-            return INITIAL;
+            return initial;
         } else {
             return Square(side: side, spots: spots)
         }
@@ -49,7 +49,7 @@ class Square {
 //    private static Square[][] _allSquares = new Square[3][10];
     
     /** A Square on the initial board. */
-    let INITIAL = Square(side: Side.WHITE, spots: 1)
+    let initial: Square = Square(side: Side.WHITE, spots: 1)
     
     /** The Side occupying this Square. */
     var _side: Side!
