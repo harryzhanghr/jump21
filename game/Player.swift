@@ -12,7 +12,7 @@ import Foundation
 class Player {
     
     /** A Player in GAME, initially playing COLOR. */
-    func Player(game: Game, color: Side) {
+    init(game: Game, color: Side) {
         _game = game
         _color = color
     }
