@@ -9,7 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     var firstContainer: UIView!
     var secondContainer: UIView!
     var thirdContainer: UIView!
@@ -21,7 +20,7 @@ class ViewController: UIViewController {
     var restartButton: UIButton!
 
     var boardSizeLabel:UILabel!
-    
+
     var addBoardSizeButton: UIButton!
     var decreaseBoardSizeButton: UIButton!
     
@@ -50,12 +49,18 @@ class ViewController: UIViewController {
         self.secondContainer.backgroundColor = UIColor(red: 192.0/255.0, green: 192.0/255.0, blue: 192.0/255.0, alpha: 1)
         self.view.addSubview(secondContainer)
 
-        
         thirdContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*5.6/10))
         self.thirdContainer.backgroundColor = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 229.0/255.0, alpha: 1)
         self.view.addSubview(thirdContainer)
         
         fourthContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height + thirdContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*2.4/10))
+
+        thirdContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*6/10))
+        self.thirdContainer.backgroundColor = UIColor.whiteColor() //UIColor(red: 245.0/255.0, green: 255.0/255.0, blue: 250.0/255.0, alpha: 1)
+        self.view.addSubview(thirdContainer)
+        
+        fourthContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height + thirdContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*2/10))
+
         self.fourthContainer.backgroundColor = UIColor(red: 255.0/255.0, green: 245.0/255.0, blue: 238.0/255.0, alpha: 1)
         self.view.addSubview(fourthContainer)
     }
@@ -108,17 +113,19 @@ class ViewController: UIViewController {
         restartButton.setTitleColor(UIColor(red: 176.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1), forState: UIControlState.Highlighted)
         restartButton.titleLabel?.font = UIFont(name: "Noteworthy-Bold", size: 20)
         restartButton.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 250.0/255.0, alpha: 1)
-        restartButton.center = CGPoint(x: containerView.frame.width/2.0, y: containerView.frame.height/3.5)
+        restartButton.center = CGPoint(x: containerView.frame.width/2.0, y: containerView.frame.height/4.0)
         restartButton.addTarget(self, action: "restartButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         restartButton.layer.masksToBounds = true
         restartButton.layer.cornerRadius = 15
         containerView.addSubview(restartButton)
 
-        addBoardSizeButton = UIButton(frame: CGRect(x: 1 , y: 1, width: containerView.frame.width / 3, height: containerView.frame.height / 4.0))
+        addBoardSizeButton = UIButton(frame: CGRect(x: 1 , y: 1, width: containerView.frame.width / 2.5, height: containerView.frame.height / 4.0))
+
         addBoardSizeButton.setTitle("Increase", forState: UIControlState.Normal)
         addBoardSizeButton.setTitleColor(UIColor(red: 176.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1), forState: UIControlState.Highlighted)
         addBoardSizeButton.titleLabel?.font = UIFont(name: "Noteworthy-Bold", size: 20)
         addBoardSizeButton.backgroundColor = UIColor(red: 230.0/255.0, green: 230.0/255.0, blue: 250.0/255.0, alpha: 1)
+
         addBoardSizeButton.center = CGPoint(x: containerView.frame.width/1.34, y: containerView.frame.height/1.4)
         addBoardSizeButton.addTarget(self, action: "increaseBoardSizeButtonPress:", forControlEvents: UIControlEvents.TouchUpInside)
         addBoardSizeButton.layer.masksToBounds = true

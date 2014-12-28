@@ -30,6 +30,14 @@ class Square {
     *  We memoize the creation of Squares to save time, since they are
     *  immutable objects.  As a special case, when SPOTS is 0 or SIDE
     *  is WHITE, returns the value of INITIAL. */
+//    class func square(side: Side, spots: Int) -> Square {
+//        if (spots == 0 || side == Side.WHITE) {
+//            return initial;
+//        } else {
+//            return Square(side: side, spots: spots)
+//        }
+//    }
+    
     class func square(side: Side, spots: Int) -> Square {
         return Square(side: side, spots: spots)
     }
@@ -43,6 +51,4 @@ class Square {
     func getSpots() -> Int {
         return _spots
     }
-
-
 }
