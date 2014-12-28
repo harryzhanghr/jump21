@@ -226,19 +226,15 @@ class MutableBoard {
             _board[r-1][c-1] = Square.square(player, spots: 1)
             if exists(r, c: c - 1) {
                 addSpot(player, r: r, c: c - 1)
-//                undoHis.pop()
             }
             if exists(r, c: c + 1) {
                 addSpot(player, r: r, c: c + 1)
-//                undoHis.pop()
             }
             if exists(r - 1, c: c) {
                 addSpot(player, r: r - 1, c: c)
-//                undoHis.pop()
             }
             if exists(r + 1, c: c) {
                 addSpot(player, r: r + 1, c: c)
-//                undoHis.pop()
             }
         } else {
             _board[r-1][c-1] = Square.square(player, spots: spots)
