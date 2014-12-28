@@ -14,16 +14,18 @@ class MutableBoard {
     /** Instance variable to store all the information about the boards. */
     var _board: [[Square]]!
     
-//    /** Store the undo history of the board. */
-//    private Stack<MutableBoard> undoHis = new Stack<MutableBoard>();
+    //    /** Store the undo history of the board. */
+    //    private Stack<MutableBoard> undoHis = new Stack<MutableBoard>();
     
     /** An N x N board in initial configuration. */
     init(n: Int) {
         _board = [[Square]]()
         for var i = 0; i < n; i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < n; j++ {
-                _board[i][j] = Square.square(Side.WHITE, spots: 1)
+                temp.append(Square.square(Side.WHITE, spots: 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -32,9 +34,11 @@ class MutableBoard {
     init(board0: MutableBoard) {
         _board = [[Square]]()
         for var i = 0; i < board0.size(); i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < board0.size(); j++ {
-                _board[i][j] = board0.get(i + 1, c: j + 1)
+                temp.append(board0.get(i + 1, c: j + 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -42,9 +46,11 @@ class MutableBoard {
     func clear(n: Int) {
         _board = [[Square]]()
         for var i = 0; i < n; i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < n; j++ {
-                _board[i][j] = Square.square(Side.WHITE, spots: 1)
+                temp.append(Square.square(Side.WHITE, spots: 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -52,27 +58,29 @@ class MutableBoard {
     func copy(board: MutableBoard) {
         _board = [[Square]]()
         for var i = 0; i < board.size(); i++ {
+            var temp = [Square]()
             for var j = 0; j < board.size(); j++ {
-                _board[i][j] = board.get(i + 1, c: j + 1)
+                temp.append(board.get(i + 1, c: j + 1))
             }
+            _board.append(temp)
         }
     }
     
-//    /** Copy the contents of BOARD into me, without modifying my undo
-//    *  history.  Assumes BOARD and I have the same size. */
-//    private void internalCopy(MutableBoard board) {
-//    for (int i = 0; i < board.size(); i++) {
-//    for (int j = 0; j < board.size(); j++) {
-//    _board[i][j] = board.get(i + 1, j + 1);
-//    }
-//    }
-//    }
+    //    /** Copy the contents of BOARD into me, without modifying my undo
+    //    *  history.  Assumes BOARD and I have the same size. */
+    //    private void internalCopy(MutableBoard board) {
+    //    for (int i = 0; i < board.size(); i++) {
+    //    for (int j = 0; j < board.size(); j++) {
+    //    _board[i][j] = board.get(i + 1, j + 1);
+    //    }
+    //    }
+    //    }
     
     /** The size of the board.*/
     func size() -> Int {
         return _board.count
     }
-
+    
     /** Get nth square. */
     func get(n: Int) -> Square {
         var r = row(n)
@@ -81,13 +89,13 @@ class MutableBoard {
     }
     
     /** Returns the contents of the square at row R, column C
-      *  1 <= R, C <= size (). */
+    *  1 <= R, C <= size (). */
     func get(r: Int, c: Int) -> Square {
         return get(sqNum(r, c: c))
     }
     
     /** Returns the Side of the player who would be next to move.  If the
-      *  game is won, this will return the loser (assuming legal position). */
+    *  game is won, this will return the loser (assuming legal position). */
     func whoseMove() -> Side {
         if ((numPieces() + size()) & 1) == 0 {
             return Side.RED
@@ -105,7 +113,7 @@ class MutableBoard {
         var n = self.size()
         return 0 <= s && s <= (n * n)
     }
-
+    
     
     /** Return the row number for square #N. */
     func row(n: Int) -> Int {
@@ -144,7 +152,7 @@ class MutableBoard {
         }
         return false;
     }
-
+    
     /** Returns the winner of the current position, if the game is over,
     *  and otherwise null. */
     func getWinner() -> Side? {
@@ -156,8 +164,8 @@ class MutableBoard {
         }
         return nil
     }
-
-
+    
+    
     /** Return number of square that SIDE has.*/
     func numOfSide(side: Side) -> Int {
         var ans = 0
@@ -172,7 +180,7 @@ class MutableBoard {
         return ans
     }
     
-
+    
     /** Return total number of spots on board. */
     func numPieces() -> Int {
         var ans = 0
@@ -183,8 +191,8 @@ class MutableBoard {
         }
         return ans
     }
-
-
+    
+    
     
     /** Returns the number of neighbors of the square at row R, column C. */
     func neighbors(r: Int, c: Int) -> Int {
@@ -206,17 +214,17 @@ class MutableBoard {
     }
     
     
-
+    
     /** Returns the number of neighbors of square #N. */
     func neighbors(n: Int) -> Int {
         return neighbors(row(n), c: col(n))
     }
-
+    
     
     
     /** add spot to R C for player PLAYER. */
     func addSpot(player: Side, r: Int, c: Int) {
-        self.markUndo()
+        //        self.markUndo()
         var winner: Side? = getWinner()
         if winner != nil {
             return
@@ -226,24 +234,24 @@ class MutableBoard {
             _board[r-1][c-1] = Square.square(player, spots: 1)
             if exists(r, c: c - 1) {
                 addSpot(player, r: r, c: c - 1)
-//                undoHis.pop()
+                //                undoHis.pop()
             }
             if exists(r, c: c + 1) {
                 addSpot(player, r: r, c: c + 1)
-//                undoHis.pop()
+                //                undoHis.pop()
             }
             if exists(r - 1, c: c) {
                 addSpot(player, r: r - 1, c: c)
-//                undoHis.pop()
+                //                undoHis.pop()
             }
             if exists(r + 1, c: c) {
                 addSpot(player, r: r + 1, c: c)
-//                undoHis.pop()
+                //                undoHis.pop()
             }
         } else {
             _board[r-1][c-1] = Square.square(player, spots: spots)
         }
-    } 
+    }
     
     
     /** add using square number.*/
@@ -252,39 +260,39 @@ class MutableBoard {
         var c: Int = col(n)
         addSpot(player, r: r, c: c)
     }
-
+    
     /** Set the square at row R, column C to NUM spots (0 <= NUM), and give
     *  it color PLAYER if NUM > 0 (otherwise, white).  Clear the undo
     *  history. */
     func set(r: Int, c: Int, num: Int, player: Side) {
         internalSet(sqNum(r, c: c), sq: Square(side: player, spots: num))
     }
-
+    
     /** Set using square number. */
     func set(n: Int, num: Int, player: Side) {
         internalSet(n, sq: Square(side: player, spots: num))
     }
-
+    
     
     func undo() {
         
     }
-//    @Override
-//    void undo() {
-//    MutableBoard temp = undoHis.pop();
-//    this.internalCopy(temp);
-//    }
-//    
+    //    @Override
+    //    void undo() {
+    //    MutableBoard temp = undoHis.pop();
+    //    this.internalCopy(temp);
+    //    }
+    //
     
     func markUndo() {
         
     }
-//    /** Record the beginning of a move in the undo history. */
-//    private void markUndo() {
-//    MutableBoard temp = new MutableBoard(this);
-//    undoHis.push(temp);
-//    }
-//    
+    //    /** Record the beginning of a move in the undo history. */
+    //    private void markUndo() {
+    //    MutableBoard temp = new MutableBoard(this);
+    //    undoHis.push(temp);
+    //    }
+    //
     
     
     
@@ -297,8 +305,8 @@ class MutableBoard {
     }
     
     
-
-
+    
+    
     
 }
 

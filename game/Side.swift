@@ -38,11 +38,10 @@ enum Side {
 //    }
 //    
 //    /** Return my lower-case name. */
-//    @Override
-//    public String toString() {
-//    return super.toString().toLowerCase();
+//    func toString() -> String {
+//        return super.toString().toLowerCase();
 //    }
-//    
+//
 //    /** Return my capitalized name (convenience method). */
 //    public String toCapitalizedString() {
 //    return super.toString().charAt(0) + toString().substring(1);
