@@ -17,9 +17,6 @@ class MutableBoard {
     //    /** Store the undo history of the board. */
     //    private Stack<MutableBoard> undoHis = new Stack<MutableBoard>();
     
-    
-    //fawefjaowejfa;
-    //fawefjao
     /** An N x N board in initial configuration. */
     init(n: Int) {
         _board = [[Square]]()
@@ -227,7 +224,7 @@ class MutableBoard {
     
     /** add spot to R C for player PLAYER. */
     func addSpot(player: Side, r: Int, c: Int) {
-
+        //        self.markUndo()
         var winner: Side? = getWinner()
         if winner != nil {
             return

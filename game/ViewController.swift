@@ -26,6 +26,10 @@ class ViewController: UIViewController {
     
     var myBoard:MutableBoard = MutableBoard(n: 6)
     
+    var myTapRec:UITapGestureRecognizer!
+    
+    var currentPlayer:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpContainer()
@@ -55,16 +59,51 @@ class ViewController: UIViewController {
         
         fourthContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height + thirdContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*2.4/10))
 
-        thirdContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*6/10))
-        self.thirdContainer.backgroundColor = UIColor.whiteColor() //UIColor(red: 245.0/255.0, green: 255.0/255.0, blue: 250.0/255.0, alpha: 1)
+        thirdContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*5.6/10))
+        self.thirdContainer.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(thirdContainer)
+        myTapRec = UITapGestureRecognizer()
+        myTapRec.addTarget(self, action: "tappedView")
+        thirdContainer.addGestureRecognizer(myTapRec)
+        thirdContainer.userInteractionEnabled = true
         
-        fourthContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height + thirdContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*2/10))
+        
+        fourthContainer = UIView(frame: CGRect(x: self.view.bounds.origin.x, y: self.view.bounds.origin.y + firstContainer.frame.height + secondContainer.frame.height + thirdContainer.frame.height, width: self.view.bounds.width, height: self.view.bounds.height*2.4/10))
 
         self.fourthContainer.backgroundColor = UIColor(red: 255.0/255.0, green: 245.0/255.0, blue: 238.0/255.0, alpha: 1)
         self.view.addSubview(fourthContainer)
     }
 
+    func tappedView() {
+        var r:Int = Int(myTapRec.locationInView(thirdContainer).x/thirdContainer.bounds.width*CGFloat(myBoard.size())) + 1
+        var c:Int = Int(myTapRec.locationInView(thirdContainer).y/thirdContainer.bounds.height*CGFloat(myBoard.size())) + 1
+        
+        if currentPlayer == 0 && myBoard.isLegal(Side.RED, r: r, c: c){
+            myBoard.addSpot(Side.RED, r: r, c: c)
+            nextPlayer.text = "Blue"
+            nextPlayer.textColor = UIColor(red: 51.0/255.0, green: 153.0/255.0, blue: 255.0/255.0, alpha: 1)
+            nextPlayer.sizeToFit()
+            currentPlayer = 1
+            updateBoard()
+        } else if currentPlayer == 1 && myBoard.isLegal(Side.BLUE, r: r, c: c){
+            myBoard.addSpot(Side.BLUE, r: r, c: c)
+            nextPlayer.text = "Red"
+            nextPlayer.sizeToFit()
+            nextPlayer.textColor = UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 71.0/255.0, alpha: 1)
+            currentPlayer = 0
+            updateBoard()
+        } else {
+            showAlertWithText(message: "Invalid Move!")
+        }
+        if myBoard.getWinner() != nil {
+            if myBoard.getWinner() == Side.BLUE {
+                showAlertWithText(header: "congratulations", message: "Blue Won!")
+            } else {
+                showAlertWithText(header: "congratulations", message: "Red Won!")
+            }
+        }
+    }
+    
     
     func setUpFirstContainer(containerView: UIView) {
         titleLabel = UILabel()
@@ -85,7 +124,7 @@ class ViewController: UIViewController {
         playerToPlayTextLabel.center = CGPoint(x: containerView.frame.width * 8 / 20, y: containerView.frame.height / 2.0)
         containerView.addSubview(playerToPlayTextLabel)
         
-        nextPlayer = UILabel(frame: CGRect(x: containerView.frame.width / 1.6, y: containerView.frame.height / 7.0, width: 40.0, height: 20.0))
+        nextPlayer = UILabel(frame: CGRect(x: containerView.frame.width / 1.6, y: containerView.frame.height / 7.0, width: 100.0, height: 20.0))
         nextPlayer.text = "Red"
         nextPlayer.textColor = UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 71.0/255.0, alpha: 1)
         nextPlayer.font = UIFont(name: "Noteworthy-Bold", size: 26)
@@ -96,11 +135,11 @@ class ViewController: UIViewController {
 
     
     func setUpThirdContainer(containerView: UIView) {
-        for var x:CGFloat = 0.0; x < containerView.frame.width; x += containerView.frame.width/CGFloat(myBoard.size()){
-            for var y:CGFloat = 0.0; y < containerView.frame.width; y += containerView.frame.width/CGFloat(myBoard.size()) {
+        for var x = 0; x < myBoard.size(); x += 1{
+            for var y = 0; y < myBoard.size(); y += 1 {
                 var slotImageView = UIImageView()
                 slotImageView.image = UIImage(named: "Empty")
-                slotImageView.frame = CGRect(x: x,y: y,width: containerView.bounds.width/CGFloat(myBoard.size()), height: containerView.bounds.height/CGFloat(myBoard.size()))
+                slotImageView.frame = CGRect(x: CGFloat(x)*containerView.bounds.width/CGFloat(myBoard.size()), y: CGFloat(y)*containerView.bounds.width/CGFloat(myBoard.size()), width: containerView.bounds.width/CGFloat(myBoard.size()), height: containerView.bounds.height/CGFloat(myBoard.size()))
                 containerView.addSubview(slotImageView)
             }
         }
@@ -119,7 +158,7 @@ class ViewController: UIViewController {
         restartButton.layer.cornerRadius = 15
         containerView.addSubview(restartButton)
 
-        addBoardSizeButton = UIButton(frame: CGRect(x: 1 , y: 1, width: containerView.frame.width / 2.5, height: containerView.frame.height / 4.0))
+        addBoardSizeButton = UIButton(frame: CGRect(x: 1 , y: 1, width: containerView.frame.width / 3.1, height: containerView.frame.height / 4.0))
 
         addBoardSizeButton.setTitle("Increase", forState: UIControlState.Normal)
         addBoardSizeButton.setTitleColor(UIColor(red: 176.0/255.0, green: 220.0/255.0, blue: 220.0/255.0, alpha: 1), forState: UIControlState.Highlighted)
@@ -142,7 +181,6 @@ class ViewController: UIViewController {
         decreaseBoardSizeButton.layer.masksToBounds = true
         decreaseBoardSizeButton.layer.cornerRadius = 15
         containerView.addSubview(decreaseBoardSizeButton)
-
         
         boardSizeLabel = UILabel(frame: CGRect(x: 1 , y: 1, width: containerView.frame.width / 2.5, height: containerView.frame.height / 4.0))
         boardSizeLabel.text = "\(6)"
@@ -155,6 +193,9 @@ class ViewController: UIViewController {
     
     func restartButtonPressed(button: UIButton) {
         myBoard = MutableBoard(n: boardSizeLabel.text!.toInt()!)
+        currentPlayer = 0
+        nextPlayer.textColor = UIColor(red: 255.0/255.0, green: 99.0/255.0, blue: 71.0/255.0, alpha: 1)
+        nextPlayer.text = "Red"
         setUpThirdContainer(thirdContainer)
     }
     
@@ -172,6 +213,64 @@ class ViewController: UIViewController {
             boardSizeLabel.text = "\(2)"
         }
     }
-
+    
+    func updateBoard() {
+        for var x:Int = 0; x < myBoard.size(); x += 1{
+            for var y:Int = 0; y < myBoard.size(); y += 1 {
+                var slotImageView = UIImageView()
+                var value:Int = myBoard.get(x+1, c: y+1)._spots!
+                var side:String = myBoard.get(x+1, c: y+1)._side!.toString()
+                switch value {
+                case 1 :
+                    switch side {
+                        
+                    case "White":
+                        slotImageView.image = UIImage(named: "Empty")
+                    case "Blue":
+                        slotImageView.image = UIImage(named: "Blue1")
+                    case "Red":
+                        slotImageView.image = UIImage(named: "Red1")
+                    default:
+                        println("error1")
+                    }
+                case 2 :
+                    switch side {
+                    case "Red":
+                        slotImageView.image = UIImage(named: "Red2")
+                    case "Blue":
+                        slotImageView.image = UIImage(named: "Blue2")
+                    default:println("error2")
+                    }
+                case 3 :
+                    switch side {
+                    case "Red":
+                        slotImageView.image = UIImage(named: "Red3")
+                    case "Blue":
+                        slotImageView.image = UIImage(named: "Blue3")
+                    default:println("error3")
+                    }
+                case 4 :
+                    switch side {
+                    case "Red":
+                        slotImageView.image = UIImage(named: "Red4")
+                    case "Blue":
+                        slotImageView.image = UIImage(named: "Blue4")
+                    default:println("error4")
+                    }
+                default:
+                    println("error5")
+                    }
+                slotImageView.frame = CGRect(x: CGFloat(x)*thirdContainer.bounds.width/CGFloat(myBoard.size()), y: CGFloat(y)*thirdContainer.bounds.width/CGFloat(myBoard.size()), width: thirdContainer.bounds.width/CGFloat(myBoard.size()), height: thirdContainer.bounds.height/CGFloat(myBoard.size()))
+                thirdContainer.addSubview(slotImageView)
+            }
+        }
+    }
+    
+    func showAlertWithText(header: String = "Warnign", message: String) {
+        var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 }
+
 
