@@ -9,7 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    var myBoard: MutableBoard = MutableBoard(n: 6)
+    
     var firstContainer: UIView!
     var secondContainer: UIView!
     var thirdContainer: UIView!
@@ -26,6 +29,25 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //tests
+        println(myBoard.size())
+        println(myBoard.whoseMove().toString())
+        myBoard.addSpot(Side.BLUE, r: 1, c: 1)
+        println(myBoard.isLegal(Side.RED, r: 1, c: 1))
+        myBoard.addSpot(Side.BLUE, r: 1, c: 1)
+        println(myBoard.get(1, c: 2)._spots)
+        myBoard.set(2, c: 2, num: 4, player: Side.RED)
+        myBoard.addSpot(Side.RED, r: 2, c: 2)
+        println(myBoard.get(1, c:2).getSpots())
+        println(myBoard.get(1, c:2).getSide().toString())
+        for var i = 0; i < 6; i++ {
+            for var j = 0; j < 6; j++ {
+                print(myBoard._board[i][j].getSpots())
+            }
+            println()
+        }
+        
         setUpContainer()
         setUpFirstContainer(firstContainer)
         setUpSecondContainer(secondContainer)
@@ -117,6 +139,10 @@ class ViewController: UIViewController {
         
     }
     
+    
+    func play() {
+        
+    }
     
     
     

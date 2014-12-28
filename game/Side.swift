@@ -31,6 +31,17 @@ enum Side {
         return side == WHITE || side == self
     }
     
+    func toString() -> String {
+        switch self {
+        case BLUE:
+            return "Blue"
+        case RED:
+            return "Red"
+        default:
+            return "White"
+        }
+    }
+    
 //    /** Return the side named SIDENAME, ignoring case differences (convenience
 //    *  method). */
 //    static Side parseSide(String sideName) {

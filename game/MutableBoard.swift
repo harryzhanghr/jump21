@@ -21,9 +21,11 @@ class MutableBoard {
     init(n: Int) {
         _board = [[Square]]()
         for var i = 0; i < n; i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < n; j++ {
-                _board[i][j] = Square.square(Side.WHITE, spots: 1)
+                temp.append(Square.square(Side.WHITE, spots: 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -32,9 +34,11 @@ class MutableBoard {
     init(board0: MutableBoard) {
         _board = [[Square]]()
         for var i = 0; i < board0.size(); i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < board0.size(); j++ {
-                _board[i][j] = board0.get(i + 1, c: j + 1)
+                temp.append(board0.get(i + 1, c: j + 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -42,9 +46,11 @@ class MutableBoard {
     func clear(n: Int) {
         _board = [[Square]]()
         for var i = 0; i < n; i++ {
+            var temp: [Square] = [Square]()
             for var j = 0; j < n; j++ {
-                _board[i][j] = Square.square(Side.WHITE, spots: 1)
+                temp.append(Square.square(Side.WHITE, spots: 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -52,9 +58,11 @@ class MutableBoard {
     func copy(board: MutableBoard) {
         _board = [[Square]]()
         for var i = 0; i < board.size(); i++ {
+            var temp = [Square]()
             for var j = 0; j < board.size(); j++ {
-                _board[i][j] = board.get(i + 1, c: j + 1)
+                temp.append(board.get(i + 1, c: j + 1))
             }
+            _board.append(temp)
         }
     }
     
@@ -216,7 +224,7 @@ class MutableBoard {
     
     /** add spot to R C for player PLAYER. */
     func addSpot(player: Side, r: Int, c: Int) {
-        self.markUndo()
+//        self.markUndo()
         var winner: Side? = getWinner()
         if winner != nil {
             return
