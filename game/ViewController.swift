@@ -266,7 +266,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func showAlertWithText(header: String = "Warnign", message: String) {
+    func showAlertWithText(header: String = "Warning", message: String) {
         var alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
